@@ -21,7 +21,7 @@ class MyAccountManager(BaseUserManager):
         return user
 
     def create_superuser(self, first_name, last_name, email, username, password):
-        user = self.create_superuser(
+        user = self.create_user(
             email = self.normalize_email(email),
             username = username,
             password = password,
@@ -57,6 +57,9 @@ class Account(AbstractBaseUser):
 
     objects = MyAccountManager()
 
+    def full_name(self):
+        return f'{self.first_name}{self.last_name}'
+
     def __str__(self):
      return self.email
 
@@ -65,3 +68,4 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
       return True    
+      
